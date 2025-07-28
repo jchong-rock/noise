@@ -1,0 +1,46 @@
+{
+    IBClasses = (
+        {CLASS = BigBoxDelegate; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            CLASS = ContactListViewController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {contactTable = NSTableView; }; 
+            SUPERCLASS = NSScrollView; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                deleteButtonClicked = id; 
+                newButtonClicked = id; 
+                renameButtonClicked = id; 
+                sendButtonClicked = id; 
+            }; 
+            CLASS = MainViewController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                bigbox = NSTableView; 
+                contactTable = NSTableView; 
+                "delete_button" = NSButton; 
+                mainWindow = NSWindow; 
+                "msg_input" = NSTextField; 
+                "rename_button" = NSButton; 
+                "send_button" = NSButton; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = MessageTextCell; LANGUAGE = ObjC; SUPERCLASS = NSTextFieldCell; }, 
+        {
+            ACTIONS = {cancelClicked = id; okClicked = id; showWindow = id; }; 
+            CLASS = SettingsViewController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                cancelButton = NSButton; 
+                dialogWindow = NSWindow; 
+                okButton = NSButton; 
+                prefsForm = NSForm; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5D8343C02E3295F8001791E2 /* tcp.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D8343BF2E3295F8001791E2 /* tcp.c */; };
+		5D8344172E32A340001791E2 /* json-rpc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8344162E32A340001791E2 /* json-rpc.m */; };
+		5DB2DCE22E36332C0034CEAF /* BigBoxDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2DCE12E36332C0034CEAF /* BigBoxDelegate.m */; };
+		5DB2DF772E3788700034CEAF /* MessageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2DF762E3788700034CEAF /* MessageTextCell.m */; };
+		5DB2E4D72E37D4060034CEAF /* SettingsUI.nib in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2E4D62E37D4060034CEAF /* SettingsUI.nib */; };
+		5DB2E4EA2E37D58E0034CEAF /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2E4E92E37D58E0034CEAF /* SettingsViewController.m */; };
+		5DB2E7FC2E38073B0034CEAF /* NoiseIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2E7FB2E38073B0034CEAF /* NoiseIcon.icns */; };
+		5DDB00632E341DD000FAE1B5 /* RWLock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DDB00622E341DD000FAE1B5 /* RWLock.m */; };
+		5DDB00A12E3427E400FAE1B5 /* AtomicInt.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DDB00A02E3427E400FAE1B5 /* AtomicInt.m */; };
+		5DDB01822E343A7600FAE1B5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DDB01812E343A7600FAE1B5 /* MainViewController.m */; };
+		5DDB02AA2E34516D00FAE1B5 /* ContactEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DDB02A92E34516D00FAE1B5 /* ContactEntry.m */; };
+		5DDB03B52E34F2C900FAE1B5 /* AddContact.nib in Resources */ = {isa = PBXBuildFile; fileRef = 5DDB03B42E34F2C900FAE1B5 /* AddContact.nib */; };
+		5DDB03BA2E350A0F00FAE1B5 /* AddContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DDB03B92E350A0F00FAE1B5 /* AddContactViewController.m */; };
+		5DDBFECD2E33C80400FAE1B5 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DDBFECC2E33C80400FAE1B5 /* JSONParser.m */; };
+		5DDBFED32E33CA3200FAE1B5 /* JSONToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DDBFED22E33CA3200FAE1B5 /* JSONToken.m */; };
+		5DDBFEDD2E33CD1100FAE1B5 /* JSONTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DDBFEDC2E33CD1100FAE1B5 /* JSONTokeniser.m */; };
+		5DDBFFEE2E33ED3800FAE1B5 /* NoiseUI.nib in Resources */ = {isa = PBXBuildFile; fileRef = 5DDBFFED2E33ED3800FAE1B5 /* NoiseUI.nib */; };
+		5DDBFFF32E33FD2800FAE1B5 /* TCPController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DDBFFF22E33FD2800FAE1B5 /* TCPController.m */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32CA4F630368D1EE00C91783 /* Noise_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Noise_Prefix.pch; sourceTree = "<group>"; };
+		5D8343BE2E3295F8001791E2 /* tcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcp.h; sourceTree = "<group>"; };
+		5D8343BF2E3295F8001791E2 /* tcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tcp.c; sourceTree = "<group>"; };
+		5D8344152E32A340001791E2 /* json-rpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "json-rpc.h"; sourceTree = "<group>"; };
+		5D8344162E32A340001791E2 /* json-rpc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "json-rpc.m"; sourceTree = "<group>"; };
+		5DB2DCE02E36332C0034CEAF /* BigBoxDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigBoxDelegate.h; sourceTree = "<group>"; };
+		5DB2DCE12E36332C0034CEAF /* BigBoxDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigBoxDelegate.m; sourceTree = "<group>"; };
+		5DB2DF752E3788700034CEAF /* MessageTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTextCell.h; sourceTree = "<group>"; };
+		5DB2DF762E3788700034CEAF /* MessageTextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTextCell.m; sourceTree = "<group>"; };
+		5DB2E39D2E37C84C0034CEAF /* JSONDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONDelegate.h; sourceTree = "<group>"; };
+		5DB2E4D62E37D4060034CEAF /* SettingsUI.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = SettingsUI.nib; sourceTree = "<group>"; };
+		5DB2E4E82E37D58E0034CEAF /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		5DB2E4E92E37D58E0034CEAF /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		5DB2E7FB2E38073B0034CEAF /* NoiseIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = NoiseIcon.icns; sourceTree = "<group>"; };
+		5DDB00612E341DD000FAE1B5 /* RWLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWLock.h; sourceTree = "<group>"; };
+		5DDB00622E341DD000FAE1B5 /* RWLock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWLock.m; sourceTree = "<group>"; };
+		5DDB009F2E3427E400FAE1B5 /* AtomicInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtomicInt.h; sourceTree = "<group>"; };
+		5DDB00A02E3427E400FAE1B5 /* AtomicInt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtomicInt.m; sourceTree = "<group>"; };
+		5DDB01082E342FD700FAE1B5 /* TCPDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPDelegate.h; sourceTree = "<group>"; };
+		5DDB01802E343A7600FAE1B5 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		5DDB01812E343A7600FAE1B5 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		5DDB02A82E34516D00FAE1B5 /* ContactEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactEntry.h; sourceTree = "<group>"; };
+		5DDB02A92E34516D00FAE1B5 /* ContactEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactEntry.m; sourceTree = "<group>"; };
+		5DDB03B42E34F2C900FAE1B5 /* AddContact.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = AddContact.nib; sourceTree = "<group>"; };
+		5DDB03B82E350A0F00FAE1B5 /* AddContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContactViewController.h; sourceTree = "<group>"; };
+		5DDB03B92E350A0F00FAE1B5 /* AddContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContactViewController.m; sourceTree = "<group>"; };
+		5DDBFECB2E33C80400FAE1B5 /* JSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONParser.h; sourceTree = "<group>"; };
+		5DDBFECC2E33C80400FAE1B5 /* JSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONParser.m; sourceTree = "<group>"; };
+		5DDBFED12E33CA3200FAE1B5 /* JSONToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONToken.h; sourceTree = "<group>"; };
+		5DDBFED22E33CA3200FAE1B5 /* JSONToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONToken.m; sourceTree = "<group>"; };
+		5DDBFEDB2E33CD1100FAE1B5 /* JSONTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONTokeniser.h; sourceTree = "<group>"; };
+		5DDBFEDC2E33CD1100FAE1B5 /* JSONTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONTokeniser.m; sourceTree = "<group>"; };
+		5DDBFFED2E33ED3800FAE1B5 /* NoiseUI.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = NoiseUI.nib; sourceTree = "<group>"; };
+		5DDBFFF12E33FD2800FAE1B5 /* TCPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPController.h; sourceTree = "<group>"; };
+		5DDBFFF22E33FD2800FAE1B5 /* TCPController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPController.m; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* Noise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noise.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* Noise.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* Noise */ = {
+			isa = PBXGroup;
+			children = (
+				5DDB02A22E34512100FAE1B5 /* Pair */,
+				5DDB017A2E34386600FAE1B5 /* ViewController */,
+				5DDB00582E341D9200FAE1B5 /* Concurrent */,
+				5DDBFEC82E33C7D800FAE1B5 /* JSON-parse */,
+				5D8344122E32A323001791E2 /* json-rpc */,
+				5D8344102E32A2F2001791E2 /* tcp */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				5DDBFFED2E33ED3800FAE1B5 /* NoiseUI.nib */,
+				5DDB03B42E34F2C900FAE1B5 /* AddContact.nib */,
+				5DB2E4D62E37D4060034CEAF /* SettingsUI.nib */,
+			);
+			name = Noise;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* Noise_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5DB2E7FB2E38073B0034CEAF /* NoiseIcon.icns */,
+				8D1107310486CEB800E47090 /* Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5D8344102E32A2F2001791E2 /* tcp */ = {
+			isa = PBXGroup;
+			children = (
+				5D8343BF2E3295F8001791E2 /* tcp.c */,
+				5D8343BE2E3295F8001791E2 /* tcp.h */,
+				5DDBFFF12E33FD2800FAE1B5 /* TCPController.h */,
+				5DDBFFF22E33FD2800FAE1B5 /* TCPController.m */,
+				5DDB01082E342FD700FAE1B5 /* TCPDelegate.h */,
+			);
+			name = tcp;
+			sourceTree = "<group>";
+		};
+		5D8344122E32A323001791E2 /* json-rpc */ = {
+			isa = PBXGroup;
+			children = (
+				5D8344152E32A340001791E2 /* json-rpc.h */,
+				5D8344162E32A340001791E2 /* json-rpc.m */,
+				5DB2E39D2E37C84C0034CEAF /* JSONDelegate.h */,
+			);
+			name = "json-rpc";
+			sourceTree = "<group>";
+		};
+		5DDB00582E341D9200FAE1B5 /* Concurrent */ = {
+			isa = PBXGroup;
+			children = (
+				5DDB00612E341DD000FAE1B5 /* RWLock.h */,
+				5DDB00622E341DD000FAE1B5 /* RWLock.m */,
+				5DDB009F2E3427E400FAE1B5 /* AtomicInt.h */,
+				5DDB00A02E3427E400FAE1B5 /* AtomicInt.m */,
+			);
+			name = Concurrent;
+			sourceTree = "<group>";
+		};
+		5DDB017A2E34386600FAE1B5 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5DB2E4E82E37D58E0034CEAF /* SettingsViewController.h */,
+				5DB2E4E92E37D58E0034CEAF /* SettingsViewController.m */,
+				5DDB01802E343A7600FAE1B5 /* MainViewController.h */,
+				5DDB01812E343A7600FAE1B5 /* MainViewController.m */,
+				5DDB03B82E350A0F00FAE1B5 /* AddContactViewController.h */,
+				5DDB03B92E350A0F00FAE1B5 /* AddContactViewController.m */,
+				5DB2DCE02E36332C0034CEAF /* BigBoxDelegate.h */,
+				5DB2DCE12E36332C0034CEAF /* BigBoxDelegate.m */,
+				5DB2DF752E3788700034CEAF /* MessageTextCell.h */,
+				5DB2DF762E3788700034CEAF /* MessageTextCell.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		5DDB02A22E34512100FAE1B5 /* Pair */ = {
+			isa = PBXGroup;
+			children = (
+				5DDB02A82E34516D00FAE1B5 /* ContactEntry.h */,
+				5DDB02A92E34516D00FAE1B5 /* ContactEntry.m */,
+			);
+			name = Pair;
+			sourceTree = "<group>";
+		};
+		5DDBFEC82E33C7D800FAE1B5 /* JSON-parse */ = {
+			isa = PBXGroup;
+			children = (
+				5DDBFECB2E33C80400FAE1B5 /* JSONParser.h */,
+				5DDBFECC2E33C80400FAE1B5 /* JSONParser.m */,
+				5DDBFED12E33CA3200FAE1B5 /* JSONToken.h */,
+				5DDBFED22E33CA3200FAE1B5 /* JSONToken.m */,
+				5DDBFEDB2E33CD1100FAE1B5 /* JSONTokeniser.h */,
+				5DDBFEDC2E33CD1100FAE1B5 /* JSONTokeniser.m */,
+			);
+			name = "JSON-parse";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* Noise */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Noise" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Noise;
+			productInstallPath = "$(HOME)/Applications";
+			productName = Noise;
+			productReference = 8D1107320486CEB800E47090 /* Noise.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Noise" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* Noise */;
+			projectDirPath = "";
+			targets = (
+				8D1107260486CEB800E47090 /* Noise */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				5DDBFFEE2E33ED3800FAE1B5 /* NoiseUI.nib in Resources */,
+				5DDB03B52E34F2C900FAE1B5 /* AddContact.nib in Resources */,
+				5DB2E4D72E37D4060034CEAF /* SettingsUI.nib in Resources */,
+				5DB2E7FC2E38073B0034CEAF /* NoiseIcon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				5D8343C02E3295F8001791E2 /* tcp.c in Sources */,
+				5D8344172E32A340001791E2 /* json-rpc.m in Sources */,
+				5DDBFECD2E33C80400FAE1B5 /* JSONParser.m in Sources */,
+				5DDBFED32E33CA3200FAE1B5 /* JSONToken.m in Sources */,
+				5DDBFEDD2E33CD1100FAE1B5 /* JSONTokeniser.m in Sources */,
+				5DDBFFF32E33FD2800FAE1B5 /* TCPController.m in Sources */,
+				5DDB00632E341DD000FAE1B5 /* RWLock.m in Sources */,
+				5DDB00A12E3427E400FAE1B5 /* AtomicInt.m in Sources */,
+				5DDB01822E343A7600FAE1B5 /* MainViewController.m in Sources */,
+				5DDB02AA2E34516D00FAE1B5 /* ContactEntry.m in Sources */,
+				5DDB03BA2E350A0F00FAE1B5 /* AddContactViewController.m in Sources */,
+				5DB2DCE22E36332C0034CEAF /* BigBoxDelegate.m in Sources */,
+				5DB2DF772E3788700034CEAF /* MessageTextCell.m in Sources */,
+				5DB2E4EA2E37D58E0034CEAF /* SettingsViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = ppc;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Noise;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = ppc;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Noise;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.2.8.sdk;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.2.8.sdk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Noise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Noise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

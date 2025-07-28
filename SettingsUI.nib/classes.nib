@@ -1,0 +1,42 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {addClicked = id; cancelClicked = id; }; 
+            CLASS = AddContactViewController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                addButton = NSButton; 
+                cancelButton = NSButton; 
+                contactForm = NSForm; 
+                dialogWindow = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                deleteButtonClicked = id; 
+                newButtonClicked = id; 
+                renameButtonClicked = id; 
+                sendButtonClicked = id; 
+            }; 
+            CLASS = MainViewController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {contactTable = NSTableView; "msg_input" = NSTextField; }; 
+            SUPERCLASS = NSWindow; 
+        }, 
+        {
+            ACTIONS = {cancelClicked = id; okClicked = id; showWindow = id; }; 
+            CLASS = SettingsViewController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                cancelButton = NSButton; 
+                dialogWindow = NSWindow; 
+                okButton = NSButton; 
+                prefsForm = NSForm; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}
