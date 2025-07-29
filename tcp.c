@@ -114,7 +114,9 @@ socket_descriptor init_tcp(const char * ip, int port) {
 		return -1;
 	}
 	int flag = 1;
-	setsockopt(socket_dsc, IPPROTO_TCP, TCP_NODELAY, &flag, sizeof(int));
+	if (setsockopt(socket_dsc, IPPROTO_TCP, TCP_NODELAY, &flag, sizeof(int)) < 0) {
+		return -1;
+	};
 	
 	return socket_dsc;
 }

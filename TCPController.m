@@ -31,6 +31,7 @@
 	self = [super init];
 	delegate = d;
 	socket = [[AtomicInt alloc] init];
+	[socket retain];
 	return self;
 }
 
@@ -38,14 +39,11 @@
 	char buffer[2048];
 	memset(buffer, NULL, sizeof(buffer));
 	int total = 0;
-	while (1) {
+	int tries = 0;
+	while (tries < 10) {
 		socket_descriptor sock = [socket value];
 		if (sock == -1) {
-			[delegate setUsername: @"" andIP: @"" andPort: @""];
-			NSRunAlertPanel(@"Error", [NSString stringWithFormat:
-											 @"Connection failed."
-				], @"OK", nil, nil);
-			return;
+			break;
 		}
 		fd_set read_fds;
 		FD_ZERO(&read_fds);
@@ -53,6 +51,7 @@
 		
 		int activity = select(sock + 1, &read_fds, NULL, NULL, NULL);
 		if (activity < 0) {
+			tries++;
 			if (![self connect]) {
 				return;
 			}
@@ -63,9 +62,13 @@
 			char c;
 			int bytes = read(sock, &c, 1);
 			if (bytes <= 0) {
-				[self connect];
+				tries++;
+				if (![self connect]) {
+					return;
+				}
 				continue;
 			}
+			tries = 0;
 			if (total < sizeof(buffer))
 				buffer[total++] = c;
 			if (c == '\n') {
@@ -77,6 +80,10 @@
 			}
 		}
 	}
+	NSRunAlertPanel(@"Error", [NSString stringWithFormat:
+									  @"Connection to '%@:%@' failed.", [delegate ip_addr], [delegate port]
+		], @"OK", nil, nil);
+	//[delegate setUsername: @"" andIP: @"" andPort: @""];
 }
 
 - (void) send:(NSString *) message {
