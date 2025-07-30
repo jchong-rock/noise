@@ -12,6 +12,7 @@
 #import "BigBoxDelegate.h"
 #import "JSONDelegate.h"
 #import "SettingsViewController.h"
+#import "RenameViewController.h"
 
 @interface MainViewController : NSObject <JSONDelegate> {
 	IBOutlet NSButton * send_button;
@@ -23,6 +24,7 @@
 	IBOutlet NSTableView * contactTable;
 	IBOutlet NSWindow * mainWindow;
 	AddContactViewController * addContactPopup;
+	RenameViewController * renameContactPopup;
 	SettingsViewController * settingsPopup;
 	IBOutlet NSTableView * bigbox;
 	NSString * current_phone;

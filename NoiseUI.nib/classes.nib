@@ -23,6 +23,7 @@
                 "delete_button" = NSButton; 
                 mainWindow = NSWindow; 
                 "msg_input" = NSTextField; 
+                "new_button" = NSButton; 
                 "rename_button" = NSButton; 
                 "send_button" = NSButton; 
             }; 

@@ -61,8 +61,8 @@
 	[col setDataCell: m];
 	[m release];
 	
-	[bigbox setTarget: self];
-	[bigbox setDoubleAction:@selector(deleteMessage:)];
+	[contactTable setTarget: self];
+	[contactTable setDoubleAction:@selector(deleteMessage:)];
 }
 
 - (void) deleteMessage:(id) sender {
@@ -110,7 +110,14 @@
 }
 
 - (IBAction) newButtonClicked:(id) sender {
-	//NSLog(@"clicked new");
+	if ([[(NSButton *) sender title] isEqualToString: @"Rename"]) {
+		if (!renameContactPopup) {
+			renameContactPopup = [[RenameViewController alloc] initWithDelegate: json_controller];
+		}
+		[renameContactPopup showWindow: contactTable];
+		[bigbox reloadData];
+		return;
+	}
 	// dialog
 	if (!addContactPopup) {
 		addContactPopup = [[AddContactViewController alloc] initWithDelegate: json_controller];
@@ -151,12 +158,14 @@
 		]];
 		[send_button setEnabled: YES];
 		[delete_button setEnabled: YES];
+		[new_button setTitle: @"Rename"];
 		[self reloadMsgs];
 		// load messages into frame
 	}
 	else {
 		[self setBigBoxTitle: @"Noise"];
 		[send_button setEnabled: NO];
+		[new_button setTitle: @"Add"];
 		[delete_button setEnabled: NO];
 		[bbd setFroms: nil andTos: nil];
 		[bigbox reloadData];
@@ -169,6 +178,9 @@
 
 - (void) receiveJSON {
 	[self reloadMsgs];
+	[self setBigBoxTitle: [NSString stringWithFormat: @"%@ (%@)",
+		[json_controller contactForNumber: current_phone], current_phone
+	]];
 }
 
 - (int) numberOfRowsInTableView:(NSTableView *) tableView {

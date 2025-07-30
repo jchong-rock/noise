@@ -31,13 +31,15 @@
 - (void) addContact:(NSString *) name forNumber:(PhoneNumber *) number;
 - (int) numContacts;
 - (NSString *) contactAtIndex:(int) idx;
-- (NSString *) phoneNumberAtIndex:(int) idx;
+- (PhoneNumber *) phoneNumberAtIndex:(int) idx;
 - (void) deleteContact:(int) idx;
 - (void) refreshContacts;
 - (NSLock *) recvLock;
 - (BOOL) initialised;
 - (void) setDelegate:(id <JSONDelegate>) deleg;
-- (void) deleteMessageWithRecipient:(NSString *) rcpt andTimestamp:(NSString *) times;
-- (void) deleteMessageWithSender:(NSString *) sndr andTimestamp:(NSString *) stamp;
+- (void) deleteMessageWithRecipient:(PhoneNumber *) rcpt andTimestamp:(NSString *) times;
+- (void) deleteMessageWithSender:(PhoneNumber *) sndr andTimestamp:(NSString *) stamp;
+- (void) renameContact:(NSString *) name forNumber:(PhoneNumber *) number;
+- (NSString *) contactForNumber:(PhoneNumber *) num;
 
 @end

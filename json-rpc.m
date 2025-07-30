@@ -77,7 +77,7 @@
 	NSString * method = [parsed objectForKey: @"method"];
 	if ([method isEqualToString: @"receive"]) {
 		NSDictionary * payload = [[parsed objectForKey: @"params"] objectForKey: @"envelope"];
-		//NSLog(@"got: %@", payload);
+		NSLog(@"got: %@", payload);
 		if ([payload objectForKey: @"dataMessage"] != nil) {
 			[self recvMessage: [[payload objectForKey: @"dataMessage"] objectForKey: @"message"]
 				   fromSender: [payload objectForKey: @"source"]
@@ -92,15 +92,15 @@
 
 - (void) recvMessage:(NSString *) message fromSender:(PhoneNumber *) sndr {
 	
-	/*if (![contacts objectForKey: sndr]) {
+	if (![contacts objectForKey: sndr]) {
 		[self addContact: sndr forNumber: sndr];
 		[delegate reloadContacts];
-	}*/
-	
-	
-	if (![contacts objectForKey: sndr]) {
-		return;
 	}
+	
+	
+	/*if (![contacts objectForKey: sndr]) {
+		return;
+	}*/
 	
 	[recvLocks lock];
 	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
@@ -212,6 +212,13 @@
 }
 
 - (void) addContact:(NSString *) name forNumber:(NSString *) number {
+	NSString * exist = [contacts objectForKey: number];
+	if (exist != nil) {
+		NSRunAlertPanel(@"Contact Exists", [NSString stringWithFormat:
+										 @"Contact '%@' already exists for number %@.", exist, number
+			], @"OK", nil, nil);
+		return;
+	}
 	[contacts setObject: name forKey: number];
 	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject: contacts forKey: @"adr"];
@@ -221,6 +228,16 @@
 	[phoneNumbers release];
 	phoneNumbers = [[contacts allKeys] sortedArrayUsingSelector: @selector(compare:)];
 	[phoneNumbers retain];
+}
+
+- (void) renameContact:(NSString *) name forNumber:(NSString *) number {
+	[contacts setObject: name forKey: number];
+	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject: contacts forKey: @"adr"];
+	[defaults synchronize];
+	if (delegate) {
+		[delegate receiveJSON];
+	}
 }
 
 - (int) numContacts {
@@ -260,6 +277,10 @@
 
 - (NSLock *) recvLock {
 	return recvLocks;
+}
+
+- (NSString *) contactForNumber:(PhoneNumber *) num {
+	return [contacts objectForKey: num];
 }
 
 - (void) dealloc {

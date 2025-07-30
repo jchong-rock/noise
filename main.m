@@ -11,5 +11,8 @@
 
 int main(int argc, char *argv[])
 {
-    return NSApplicationMain(argc,  (const char **) argv);
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	int retval = NSApplicationMain(argc,  (const char **) argv);
+	[pool release];
+    return retval;
 }

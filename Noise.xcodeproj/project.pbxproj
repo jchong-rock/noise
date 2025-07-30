@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5D8343C02E3295F8001791E2 /* tcp.c in Sources */ = {isa = PBXBuildFile; fileRef = 5D8343BF2E3295F8001791E2 /* tcp.c */; };
 		5D8344172E32A340001791E2 /* json-rpc.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D8344162E32A340001791E2 /* json-rpc.m */; };
+		5D9ED5622E3A7018001D5FDA /* RenameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D9ED5612E3A7018001D5FDA /* RenameViewController.m */; };
 		5DB2DCE22E36332C0034CEAF /* BigBoxDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2DCE12E36332C0034CEAF /* BigBoxDelegate.m */; };
 		5DB2DF772E3788700034CEAF /* MessageTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2DF762E3788700034CEAF /* MessageTextCell.m */; };
 		5DB2E4D72E37D4060034CEAF /* SettingsUI.nib in Resources */ = {isa = PBXBuildFile; fileRef = 5DB2E4D62E37D4060034CEAF /* SettingsUI.nib */; };
@@ -42,6 +43,8 @@
 		5D8343BF2E3295F8001791E2 /* tcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tcp.c; sourceTree = "<group>"; };
 		5D8344152E32A340001791E2 /* json-rpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "json-rpc.h"; sourceTree = "<group>"; };
 		5D8344162E32A340001791E2 /* json-rpc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "json-rpc.m"; sourceTree = "<group>"; };
+		5D9ED5602E3A7018001D5FDA /* RenameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenameViewController.h; sourceTree = "<group>"; };
+		5D9ED5612E3A7018001D5FDA /* RenameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenameViewController.m; sourceTree = "<group>"; };
 		5DB2DCE02E36332C0034CEAF /* BigBoxDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigBoxDelegate.h; sourceTree = "<group>"; };
 		5DB2DCE12E36332C0034CEAF /* BigBoxDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigBoxDelegate.m; sourceTree = "<group>"; };
 		5DB2DF752E3788700034CEAF /* MessageTextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTextCell.h; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				5DB2DCE12E36332C0034CEAF /* BigBoxDelegate.m */,
 				5DB2DF752E3788700034CEAF /* MessageTextCell.h */,
 				5DB2DF762E3788700034CEAF /* MessageTextCell.m */,
+				5D9ED5602E3A7018001D5FDA /* RenameViewController.h */,
+				5D9ED5612E3A7018001D5FDA /* RenameViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 				5DB2DCE22E36332C0034CEAF /* BigBoxDelegate.m in Sources */,
 				5DB2DF772E3788700034CEAF /* MessageTextCell.m in Sources */,
 				5DB2E4EA2E37D58E0034CEAF /* SettingsViewController.m in Sources */,
+				5D9ED5622E3A7018001D5FDA /* RenameViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

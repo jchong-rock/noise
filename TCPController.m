@@ -12,6 +12,7 @@
 #import <sys/select.h>
 #import <netinet/in.h>
 #import <netinet/tcp.h>
+#import <pthread.h>
 
 @implementation TCPController
 
@@ -80,10 +81,12 @@
 			}
 		}
 	}
+	//[delegate setUsername: nil andIP: [delegate ip_addr] andPort: [delegate port]];
 	NSRunAlertPanel(@"Error", [NSString stringWithFormat:
 									  @"Connection to '%@:%@' failed.", [delegate ip_addr], [delegate port]
 		], @"OK", nil, nil);
-	//[delegate setUsername: @"" andIP: @"" andPort: @""];
+	pthread_exit(&socket);
+	
 }
 
 - (void) send:(NSString *) message {
