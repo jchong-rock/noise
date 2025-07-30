@@ -77,11 +77,15 @@
 	NSString * method = [parsed objectForKey: @"method"];
 	if ([method isEqualToString: @"receive"]) {
 		NSDictionary * payload = [[parsed objectForKey: @"params"] objectForKey: @"envelope"];
-		NSLog(@"got: %@", payload);
+		//NSLog(@"got: %@", payload);
 		if ([payload objectForKey: @"dataMessage"] != nil) {
-			[self recvMessage: [[payload objectForKey: @"dataMessage"] objectForKey: @"message"]
-				   fromSender: [payload objectForKey: @"source"]
-			];
+			// TODO: add attachments
+			NSString * message = [[payload objectForKey: @"dataMessage"] objectForKey: @"message"];
+			if (message) {
+				[self recvMessage: message
+					   fromSender: [payload objectForKey: @"source"]
+				];
+			}
 		}
 	}
 }
