@@ -27,10 +27,11 @@
 	if (val) {
 		[timestampCounter set: 1 + [val longValue]];
 	}
-	controller = [[TCPController alloc] initWithDelegate: self];
+	controller = [[[TCPController alloc] initWithDelegate: self] autorelease];
 	if (![controller connect]) {
 		return self;
 	}
+
 	parser = [[JSONParser alloc] init];
 	[self refreshContacts];
 	[self refreshGroups];
@@ -78,7 +79,7 @@
 	NSString * method = [parsed objectForKey: @"method"];
 	if ([method isEqualToString: @"receive"]) {
 		NSDictionary * payload = [[parsed objectForKey: @"params"] objectForKey: @"envelope"];
-		NSLog(@"got: %@", payload);
+		//NSLog(@"got: %@", payload);
 		if ([payload objectForKey: @"dataMessage"] != nil) {
 			// TODO: add attachments
 			NSString * message = [[payload objectForKey: @"dataMessage"] objectForKey: @"message"];
@@ -112,7 +113,7 @@
 	if (groupInfo) {
 		NSString * groupID = [groupInfo objectForKey: @"groupId"];
 		NSString * groupName = [groupInfo objectForKey: @"groupName"];
-		NSLog(@"%@, %@", groupName, groupID);
+		//NSLog(@"%@, %@", groupName, groupID);
 		if (![groups objectForKey: groupID]) {
 			[self addGroup: groupName forNumber: groupID];
 			[delegate reloadGroups];
@@ -415,14 +416,13 @@
 }
 
 - (void) dealloc {
-	[pnum release];
 	[timestampCounter release];
 	[contacts release];
 	[phoneNumbers release];
 	[groups release];
 	[groupNumbers release];
-	[controller release];
 	[parser release];
+	delegate = nil;
 	[super dealloc];
 }
 

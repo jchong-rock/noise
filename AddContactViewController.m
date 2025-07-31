@@ -12,8 +12,10 @@
 
 - (id) initWithDelegate:(JSON_RPC *) delgt {
 	self = [super init];
-	[NSBundle loadNibNamed: @"AddContact" owner: self];
-	delegate = delgt;
+	if (self) {
+		[NSBundle loadNibNamed: @"AddContact" owner: self];
+		delegate = [delgt retain];
+	}
 	return self;
 }
 
@@ -50,6 +52,12 @@
 	[dialogWindow makeKeyAndOrderFront: nil];
 	[NSApp activateIgnoringOtherApps: YES];
 	contactTable = tblv;
+}
+
+- (void) dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver: self];
+	[delegate release];
+	[super dealloc];
 }
 
 @end

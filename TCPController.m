@@ -19,7 +19,6 @@
 - (BOOL) connect {
 	[socket set: init_tcp([[delegate ip_addr] UTF8String], [[delegate port] intValue])];
 	if ([socket value] == -1) {
-		//NSLog(@"Connection failed"); // TODO: convert to alert box
 		NSRunAlertPanel(@"Error", [NSString stringWithFormat:
 										 @"Connection to '%@:%@' failed.", [delegate ip_addr], [delegate port]
 			], @"OK", nil, nil);
@@ -37,11 +36,13 @@
 }
 
 - (void) recvLoop {
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	char buffer[2048];
 	memset(buffer, NULL, sizeof(buffer));
 	int total = 0;
 	int tries = 0;
 	while (tries < 10) {
+
 		socket_descriptor sock = [socket value];
 		if (sock == -1) {
 			break;
@@ -54,6 +55,7 @@
 		if (activity < 0) {
 			tries++;
 			if (![self connect]) {
+				[pool drain];
 				return;
 			}
 			continue;
@@ -65,6 +67,7 @@
 			if (bytes <= 0) {
 				tries++;
 				if (![self connect]) {
+					[pool drain];
 					return;
 				}
 				continue;
@@ -86,7 +89,7 @@
 									  @"Connection to '%@:%@' failed.", [delegate ip_addr], [delegate port]
 		], @"OK", nil, nil);
 	pthread_exit(&socket);
-	
+	[pool drain];
 }
 
 - (void) send:(NSString *) message {

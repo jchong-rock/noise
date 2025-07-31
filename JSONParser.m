@@ -36,6 +36,7 @@ NSString * JSONUnescape(NSString * input) {
 @implementation JSONParser
 
 - (void) advance {
+	[_currentToken release];
 	_currentToken = [_tokeniser nextToken];
 }
 
@@ -132,8 +133,8 @@ NSString * JSONUnescape(NSString * input) {
 }
 
 - (void) dealloc {
-	[_tokeniser release];
 	[_currentToken release];
+	[_tokeniser release];
 	[super dealloc];
 }
 

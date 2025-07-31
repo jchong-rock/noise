@@ -14,16 +14,16 @@
 - (JSONToken *) initWithType:(JSONTokenType) t andValue:(NSString *) val {
 	self = [super init];
 	type = t;
-	value = val;
+	value = [val retain];
 	return self;
 }
 
 + (JSONToken *) tokenWithType:(JSONTokenType) type andValue:(NSString *) val {
-	return [[JSONToken alloc] initWithType: type andValue: val];
+	return [[[JSONToken alloc] initWithType: type andValue: val] autorelease];
 }
 
 + (JSONToken *) tokenWithType:(JSONTokenType) type {
-	return [[JSONToken alloc] initWithType: type andValue: nil];
+	return [[[JSONToken alloc] initWithType: type andValue: nil] autorelease];
 }
 
 - (JSONTokenType) type {
@@ -32,6 +32,11 @@
 
 - (NSString *) value {
 	return value;
+}
+
+- (void) dealloc {
+	[value release];
+	[super dealloc];
 }
 
 @end
