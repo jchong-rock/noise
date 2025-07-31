@@ -17,14 +17,21 @@
 	self = [super init];
 	json_controller = [[JSON_RPC alloc] init];
 	contactTable = [[NSTableView alloc] init];
+	groupsTable = [[NSTableView alloc] init];
+	groups = NO;
 	bigbox = [[NSTableView alloc] init];
 	[contactTable setDelegate: self];
+	[groupsTable setDelegate: self];
 	[json_controller setDelegate: self];
 	return self;
 }
 
 - (void) reloadContacts {
 	[contactTable reloadData];
+}
+
+- (void) reloadGroups {
+	[groupsTable reloadData];
 }
 
 - (void) setBigBoxTitle:(NSString *) title {
@@ -36,10 +43,14 @@
 - (IBAction) sendButtonClicked:(id) sender {
 	//NSLog(@"clicked send");
 	//NSLog(@"%@", [msg_input stringValue]);
-	
+	//NSLog(@"group %d", groups);
 	NSString * message = [msg_input stringValue];
 	if (message != nil && [message length] > 0) {
-		[json_controller send: message toRecipient: current_phone];
+		if (groups) {
+			[json_controller send: message toGroup: current_phone];
+		} else {
+			[json_controller send: message toRecipient: current_phone];
+		}
 	}
 	[msg_input setStringValue: @""];
 	[self reloadMsgs];
@@ -61,20 +72,19 @@
 	[col setDataCell: m];
 	[m release];
 	
-	[contactTable setTarget: self];
-	[contactTable setDoubleAction:@selector(deleteMessage:)];
+	[bigbox setTarget: self];
+	[bigbox setDoubleAction:@selector(deleteMessage:)];
 }
 
 - (void) deleteMessage:(id) sender {
 	int row = [bigbox clickedRow];
-	struct strBool * key = [bbd keyAtRow: row];
-	if (key->bl) {
-		[json_controller deleteMessageWithRecipient: current_phone andTimestamp: key->str];
+	ContactEntry * entry = [bbd keyAtRow: row];
+	if ([entry isRecv]) {
+		[json_controller deleteMessageWithRecipient: current_phone andTimestamp: [entry key]];
 	}
 	else {
-		[json_controller deleteMessageWithSender: current_phone andTimestamp: key->str];
+		[json_controller deleteMessageWithSender: current_phone andTimestamp: [entry key]];
 	}
-	free(key);
 	[self reloadMsgs];
 }
 
@@ -91,7 +101,11 @@
 	}
 	//NSLog(@"messages to %@: %@", current_phone, sendMsgs);
 	//NSLog(@"messages from %@: %@", current_phone, recvMsgs);
-	[bbd setFroms: recvMsgs andTos: sendMsgs];
+	if (groups) {
+		[bbd setFromsGroup: recvMsgs andTos: sendMsgs];
+	} else {
+		[bbd setFroms: recvMsgs andTos: sendMsgs];
+	}
 	//NSLog(@"bigbox del : %@", [bigbox delegate]);
 	[bigbox reloadData];
 	int lastRow = (int)[bigbox numberOfRows] - 1;
@@ -102,9 +116,16 @@
 
 - (IBAction) deleteButtonClicked:(id) sender {
 	//NSLog(@"clicked delete");
-	int selectedRow = [contactTable selectedRow];
 	[bbd setFroms: nil andTos: nil];
-	[json_controller deleteContact: selectedRow];
+	int selectedRow = [contactTable selectedRow];
+	if (selectedRow == -1) {
+		selectedRow = [groupsTable selectedRow];
+		//[json_controller deleteGroup: selectedRow];
+	} else {
+		[json_controller deleteContact: selectedRow];
+	}
+	[groupsTable deselectAll: self];
+	[groupsTable reloadData];
 	[contactTable deselectAll: self];
 	[contactTable reloadData];
 }
@@ -139,6 +160,7 @@
 	[bigbox release];
 	[bbd release];
 	[contactTable release];
+	[groupsTable release];
 	[send_button release];
 	[new_button release];
 	[rename_button release];
@@ -150,19 +172,32 @@
 
 - (void) tableViewSelectionDidChange:(NSNotification *) notification {
 	NSTableView * tv = [notification object];
+	groups = (tv == groupsTable);
 	int selectedRow = [tv selectedRow];
 	if (selectedRow != -1) {
-		current_phone = [json_controller phoneNumberAtIndex: selectedRow];
-		[self setBigBoxTitle: [NSString stringWithFormat: @"%@ (%@)",
-			[json_controller contactAtIndex: selectedRow], current_phone
-		]];
+		NSString * cntc = groups ? [json_controller groupAtIndex: selectedRow] : 
+									[json_controller contactAtIndex: selectedRow];
+		current_phone = groups ? [json_controller groupNumberAtIndex: selectedRow]:
+									[json_controller phoneNumberAtIndex: selectedRow];
+		[self setBigBoxTitle: [NSString stringWithFormat: @"%@ (%@)", cntc, current_phone]];
+		
+		if (groups) {
+			[contactTable deselectAll: self];
+			[new_button setEnabled: NO];
+			[delete_button setEnabled: NO];
+		} else {
+			[groupsTable deselectAll: self];
+			[new_button setEnabled: YES];
+			[delete_button setEnabled: YES];
+			[new_button setTitle: @"Rename"];
+		}
 		[send_button setEnabled: YES];
-		[delete_button setEnabled: YES];
-		[new_button setTitle: @"Rename"];
 		[self reloadMsgs];
 		// load messages into frame
 	}
 	else {
+		groups = !groups;
+		[new_button setEnabled: YES];
 		[self setBigBoxTitle: @"Noise"];
 		[send_button setEnabled: NO];
 		[new_button setTitle: @"Add"];
@@ -176,18 +211,27 @@
 	[NSApp terminate: self];
 }
 
-- (void) receiveJSON {
-	[self reloadMsgs];
+- (void) reloadTitle {
 	[self setBigBoxTitle: [NSString stringWithFormat: @"%@ (%@)",
 		[json_controller contactForNumber: current_phone], current_phone
-	]];
+		]];
+}
+
+- (void) receiveJSON {
+	[self reloadMsgs];
 }
 
 - (int) numberOfRowsInTableView:(NSTableView *) tableView {
+	if (tableView == groupsTable) {
+		return [json_controller numGroups];
+	}
 	return [json_controller numContacts];
 }
 
 - (id) tableView:(NSTableView *) tableView objectValueForTableColumn:(NSTableColumn *) column row:(int) row {
+	if (tableView == groupsTable) {
+		return [json_controller groupAtIndex: row];
+	}
 	return [json_controller contactAtIndex: row];
 }
 

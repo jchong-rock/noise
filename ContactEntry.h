@@ -10,16 +10,17 @@
 
 
 @interface ContactEntry : NSObject {
-	NSString * _name;
-	NSString * _phone_number;
+	NSString * _key;
+	NSString * _sender;
+	NSString * _message;
+	BOOL _isRecv;
+	
 }
 
-- (NSString *) name;
-
-- (NSString *) phoneNumber;
-
-- (void) setName:(NSString *) name;
-
-- (void) setPhoneNumber:(NSString *) phoneNumber;
+- (NSString *) key;
+- (NSString *) sender;
+- (BOOL) isRecv;
+- (NSString *) message;
+- (id) initWithSender:(NSString *) sender andKey:(NSString *) key andMessage:(NSString *) msg andIsRecv:(BOOL) isRecv;
 
 @end

@@ -33,6 +33,7 @@
 	}
 	parser = [[JSONParser alloc] init];
 	[self refreshContacts];
+	[self refreshGroups];
 	[NSThread detachNewThreadSelector: @selector(recvLoop)
 							 toTarget: controller
 						   withObject: nil];
@@ -77,13 +78,15 @@
 	NSString * method = [parsed objectForKey: @"method"];
 	if ([method isEqualToString: @"receive"]) {
 		NSDictionary * payload = [[parsed objectForKey: @"params"] objectForKey: @"envelope"];
-		//NSLog(@"got: %@", payload);
+		NSLog(@"got: %@", payload);
 		if ([payload objectForKey: @"dataMessage"] != nil) {
 			// TODO: add attachments
 			NSString * message = [[payload objectForKey: @"dataMessage"] objectForKey: @"message"];
+			NSDictionary * groupInfo = [[payload objectForKey: @"dataMessage"] objectForKey: @"groupInfo"];
 			if (message) {
 				[self recvMessage: message
-					   fromSender: [payload objectForKey: @"source"]
+					   fromSender: [payload objectForKey: @"source"] 
+					withGroupInfo: groupInfo
 				];
 			}
 		}
@@ -94,21 +97,33 @@
 	return [phoneNumbers objectAtIndex: idx];
 }
 
-- (void) recvMessage:(NSString *) message fromSender:(PhoneNumber *) sndr {
-	
+- (NSString *) groupNumberAtIndex:(int) idx {
+	return [groupNumbers objectAtIndex: idx];
+}
+
+- (void) recvMessage:(NSString *) message fromSender:(PhoneNumber *) sndr withGroupInfo:(NSDictionary *) groupInfo {
+	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+	//groups = [[defaults dictionaryForKey: @"grps"] mutableCopy];
 	if (![contacts objectForKey: sndr]) {
 		[self addContact: sndr forNumber: sndr];
 		[delegate reloadContacts];
 	}
+	NSString * phonekey;
+	if (groupInfo) {
+		NSString * groupID = [groupInfo objectForKey: @"groupId"];
+		NSString * groupName = [groupInfo objectForKey: @"groupName"];
+		NSLog(@"%@, %@", groupName, groupID);
+		if (![groups objectForKey: groupID]) {
+			[self addGroup: groupName forNumber: groupID];
+			[delegate reloadGroups];
+		}
+		phonekey = [NSString stringWithFormat: @"r%@", groupID];
+	} else {
+		phonekey = [NSString stringWithFormat: @"r%@", sndr];
+	}
 	
-	
-	/*if (![contacts objectForKey: sndr]) {
-		return;
-	}*/
 	
 	[recvLocks lock];
-	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-	NSString * phonekey = [NSString stringWithFormat: @"r%@", sndr];
 	NSMutableDictionary * messages = [[defaults dictionaryForKey: phonekey] mutableCopy];
 	long times = [timestampCounter getAndInc];
 	[defaults setObject: [NSNumber numberWithLong: times] forKey: @"stmp"];
@@ -119,26 +134,53 @@
 	if (!message) {
 		message = @"This message could not be received.";
 	}
-	[messages setObject: message forKey: stamp];
-	if ([messages count] > 100) {
-		NSArray * kys = [messages allKeys];
-		NSMutableArray * numArray = [NSMutableArray arrayWithCapacity:[kys count]];
-		int i;
-		for (i = 0; i < [kys count]; i++) {
-			NSString * sss = [kys objectAtIndex: i];
-			NSScanner * scb = [NSScanner scannerWithString: sss];
-			long long va;
-			[scb scanLongLong: &va];
-			NSNumber * nnn = [NSNumber numberWithLongLong: va];
-			[numArray addObject: nnn];
+	NSMutableDictionary * groupLog;
+	if (groupInfo) {
+		groupLog = [[messages objectForKey: sndr] mutableCopy];
+		if (!groupLog) {
+			groupLog = [[NSMutableDictionary alloc] init];
 		}
-		NSArray * sortedKeys = [numArray sortedArrayUsingSelector: @selector(compare:)];
-		id smallestKey = [sortedKeys objectAtIndex: 0];
-		[messages removeObjectForKey: smallestKey];
+		[groupLog setObject: message forKey: stamp];
+		if ([groupLog count] > 100) {
+			NSArray * kys = [groupLog allKeys];
+			NSMutableArray * numArray = [NSMutableArray arrayWithCapacity:[kys count]];
+			int i;
+			for (i = 0; i < [kys count]; i++) {
+				NSString * sss = [kys objectAtIndex: i];
+				NSScanner * scb = [NSScanner scannerWithString: sss];
+				long long va;
+				[scb scanLongLong: &va];
+				NSNumber * nnn = [NSNumber numberWithLongLong: va];
+				[numArray addObject: nnn];
+			}
+			NSArray * sortedKeys = [numArray sortedArrayUsingSelector: @selector(compare:)];
+			id smallestKey = [sortedKeys objectAtIndex: 0];
+			[groupLog removeObjectForKey: smallestKey];
+		}
+		[messages setObject: groupLog forKey: sndr];
+	} else {
+		[messages setObject: message forKey: stamp];
+		if ([messages count] > 100) {
+			NSArray * kys = [messages allKeys];
+			NSMutableArray * numArray = [NSMutableArray arrayWithCapacity:[kys count]];
+			int i;
+			for (i = 0; i < [kys count]; i++) {
+				NSString * sss = [kys objectAtIndex: i];
+				NSScanner * scb = [NSScanner scannerWithString: sss];
+				long long va;
+				[scb scanLongLong: &va];
+				NSNumber * nnn = [NSNumber numberWithLongLong: va];
+				[numArray addObject: nnn];
+			}
+			NSArray * sortedKeys = [numArray sortedArrayUsingSelector: @selector(compare:)];
+			id smallestKey = [sortedKeys objectAtIndex: 0];
+			[messages removeObjectForKey: smallestKey];
+		}
 	}
 	[defaults setObject: messages forKey: phonekey];
 	[defaults synchronize];
 	[messages release];
+	[groupLog release];
 	[recvLocks unlock];
 	if (delegate) {
 		[delegate receiveJSON];
@@ -215,6 +257,67 @@
 	[messages release];
 }
 
+- (void) send:(NSString *) message toGroup:(NSString *) rcpt {
+	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+	long times = [timestampCounter getAndInc];
+	[defaults setObject: [NSNumber numberWithLong: times] forKey: @"stmp"];
+	NSString * stamp = [NSString stringWithFormat: @"%ld", times];
+	NSString * payload = [[NSString alloc] initWithFormat:
+		@"{\"jsonrpc\":\"2.0\",\"method\":\"send\",\"params\":{\"groupId\":[\"%@\"],\"message\":\"%@\"},\"id\":%@}",
+		rcpt, JSONStringEscape(message), stamp];
+	[controller send: payload];
+	[payload release];
+	
+	NSString * phonekey = [NSString stringWithFormat: @"s%@", rcpt];
+	NSMutableDictionary * messages = [[defaults dictionaryForKey: phonekey] mutableCopy];
+	
+	if (!messages) {
+		messages = [[NSMutableDictionary alloc] init];
+	}
+	
+	[messages setObject: message forKey: stamp];
+	if ([messages count] > 100) {
+		NSArray * kys = [messages allKeys];
+		NSMutableArray * numArray = [NSMutableArray arrayWithCapacity:[kys count]];
+		int i;
+		for (i = 0; i < [kys count]; i++) {
+			NSString * sss = [kys objectAtIndex: i];
+			NSScanner * scb = [NSScanner scannerWithString: sss];
+			long long va;
+			[scb scanLongLong: &va];
+			NSNumber * nnn = [NSNumber numberWithLongLong: va];
+			[numArray addObject: nnn];
+		}
+		NSArray * sortedKeys = [numArray sortedArrayUsingSelector: @selector(compare:)];
+		id smallestKey = [sortedKeys objectAtIndex: 0];
+		[messages removeObjectForKey: smallestKey];
+	}
+	[defaults setObject: messages forKey: phonekey];
+	[defaults synchronize];
+	[messages release];
+}
+
+
+- (void) addGroup:(NSString *) name forNumber:(NSString *) number {
+	NSString * exist = [groups objectForKey: number];
+	if (exist != nil) {
+		NSRunAlertPanel(@"Group Exists", [NSString stringWithFormat:
+			@"Group '%@' already exists.", exist
+			], @"OK", nil, nil);
+		return;
+	}
+	[groups setObject: name forKey: number];
+	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject: groups forKey: @"grps"];
+	[defaults setObject: [NSDictionary dictionary] forKey:[NSString stringWithFormat: @"s%@", number]];
+	[defaults setObject: [NSDictionary dictionary] forKey:[NSString stringWithFormat: @"r%@", number]];
+	[defaults synchronize];
+	[groupNumbers release];
+	groupNumbers = [[groups allKeys] sortedArrayUsingSelector: @selector(compare:)];
+	[groupNumbers retain];
+
+}
+
 - (void) addContact:(NSString *) name forNumber:(NSString *) number {
 	NSString * exist = [contacts objectForKey: number];
 	if (exist != nil) {
@@ -240,16 +343,26 @@
 	[defaults setObject: contacts forKey: @"adr"];
 	[defaults synchronize];
 	if (delegate) {
-		[delegate receiveJSON];
+		[delegate reloadTitle];
 	}
 }
 
 - (int) numContacts {
 	return [phoneNumbers count];
 }
+
+- (int) numGroups {
+	return [groupNumbers count];
+}
+
 - (NSString *) contactAtIndex:(int) idx {
 	return [contacts objectForKey: [phoneNumbers objectAtIndex: idx]];
 }
+
+- (NSString *) groupAtIndex:(int) idx {
+	return [groups objectForKey: [groupNumbers objectAtIndex: idx]];
+}
+
 - (void) deleteContact:(int) idx {
 	if (idx != -1) {
 		NSString * selectedPhoneNumber = [phoneNumbers objectAtIndex: idx];
@@ -263,6 +376,20 @@
 		phoneNumbers = [[contacts allKeys] sortedArrayUsingSelector: @selector(compare:)];
 		[phoneNumbers retain];
 	}
+}
+
+- (void) refreshGroups {
+	NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+	groups = [[defaults dictionaryForKey: @"grps"] mutableCopy];
+	if (groups == nil) {
+		groups = [NSMutableDictionary dictionary]; // string -> string
+		[defaults setObject: groups forKey: @"grps"];
+		[defaults synchronize];
+	}
+	[groupNumbers release];
+	groupNumbers = [[groups allKeys] sortedArrayUsingSelector: @selector(compare:)];
+	[groupNumbers retain];
+	[groups retain];
 }
 
 - (void) refreshContacts {
@@ -292,6 +419,8 @@
 	[timestampCounter release];
 	[contacts release];
 	[phoneNumbers release];
+	[groups release];
+	[groupNumbers release];
 	[controller release];
 	[parser release];
 	[super dealloc];

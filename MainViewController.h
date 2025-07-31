@@ -22,6 +22,7 @@
 	IBOutlet NSTextField * msg_input;
 	JSON_RPC * json_controller;
 	IBOutlet NSTableView * contactTable;
+	IBOutlet NSTableView * groupsTable;
 	IBOutlet NSWindow * mainWindow;
 	AddContactViewController * addContactPopup;
 	RenameViewController * renameContactPopup;
@@ -29,6 +30,7 @@
 	IBOutlet NSTableView * bigbox;
 	NSString * current_phone;
 	BigBoxDelegate * bbd;
+	BOOL groups;
 }
 
 - (IBAction) sendButtonClicked:(id) sender;

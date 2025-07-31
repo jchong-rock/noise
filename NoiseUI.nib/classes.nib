@@ -8,6 +8,7 @@
             SUPERCLASS = NSScrollView; 
         }, 
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = GroupsDelegate; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
             ACTIONS = {
                 deleteButtonClicked = id; 
@@ -21,6 +22,7 @@
                 bigbox = NSTableView; 
                 contactTable = NSTableView; 
                 "delete_button" = NSButton; 
+                groupsTable = NSTableView; 
                 mainWindow = NSWindow; 
                 "msg_input" = NSTextField; 
                 "new_button" = NSButton; 

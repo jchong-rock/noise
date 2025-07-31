@@ -7,19 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-struct strBool {
-	NSString * str;
-	BOOL bl;
-};
+#import "ContactEntry.h"
 
 @interface BigBoxDelegate : NSObject {
-	NSDictionary * froms;
-	NSDictionary * tos;
+	NSDictionary * messages;
 	NSArray * sortedKeys;
+	NSLock * bigboxLock;
 }
 
+- (void) setFromsGroup:(NSDictionary *) frm andTos:(NSDictionary *) tss;
 - (void) setFroms:(NSDictionary *) frm andTos:(NSDictionary *) tss;
-- (struct strBool *) keyAtRow:(int) row;
+- (ContactEntry *) keyAtRow:(int) row;
+- (void) keySort:(NSArray *) unsorted;
 
 @end

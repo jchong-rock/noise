@@ -13,5 +13,7 @@
 
 - (void) receiveJSON;
 - (void) reloadContacts;
+- (void) reloadGroups;
+- (void) reloadTitle;
 
 @end
